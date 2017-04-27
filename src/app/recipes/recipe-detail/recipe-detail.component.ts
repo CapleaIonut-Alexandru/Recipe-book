@@ -3,11 +3,15 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 
 import { Recipe } from '../recipe.model';
 import { RecipeService } from '../recipe.service';
+import { NotificationsService } from '../notifications/notifications.service';
+import { Notification } from '../notifications/notifications.model';
+import { Notifications } from '../notifications/notifications.component';
 
 @Component({
   selector: 'app-recipe-detail',
   templateUrl: './recipe-detail.component.html',
-  styleUrls: ['./recipe-detail.component.css']
+  styleUrls: ['./recipe-detail.component.css'],
+  providers:[NotificationsService]
 })
 export class RecipeDetailComponent implements OnInit {
   recipe: Recipe;
@@ -15,6 +19,7 @@ export class RecipeDetailComponent implements OnInit {
 
   constructor(private recipeService: RecipeService,
               private route: ActivatedRoute,
+              private notifications:NotificationsService,
               private router: Router) {
   }
 
@@ -30,6 +35,7 @@ export class RecipeDetailComponent implements OnInit {
 
   onAddToShoppingList() {
     this.recipeService.addIngredientsToShoppingList(this.recipe.ingredients);
+    this.notifications.add(new Notification('success', 'Ingredients was added in shopping list!'));
   }
 
   onEditRecipe() {
@@ -40,6 +46,7 @@ export class RecipeDetailComponent implements OnInit {
   onDeleteRecipe() {
     this.recipeService.deleteRecipe(this.id);
     this.router.navigate(['/recipes']);
+    this.notifications.add(new Notification('delete', 'Ingredients was deleted!'));
   }
 
 }

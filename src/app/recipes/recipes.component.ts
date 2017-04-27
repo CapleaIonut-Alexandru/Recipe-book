@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Notifications } from '../notifications/notifications.component';
+
+
+
 
 
 
@@ -7,11 +11,13 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './recipes.component.html',
   styleUrls: ['./recipes.component.css']
 })
-export class RecipesComponent {
+export class RecipesComponent implements OnInit {
 
 	
-
-  	constructor() { }
+	constructor () { }
+   ngOnInit() {
+      
+  }
 
 
 }
